@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content";
+import PageLayout from "@layouts/PageLayout.astro";
+import Container from "@components/Container.astro";
+import { ABOUT } from "@consts";
+
+const collection = (await getCollection("about"))
+//.sort((a, b) => new Date(b.data.dateStart).valueOf() - new Date(a.data.dateStart).valueOf());
+
+const about = await Promise.all(
+  collection.map(async (item) => {
+    const { Content } = await item.render();
+    return { ...item, Content };
+  })
+);
+---
+
+<PageLayout title={ABOUT.TITLE} description={ABOUT.DESCRIPTION}>
+  <Container>
+    <div class="space-y-10">
+      <div class="animate font-semibold text-black dark:text-white">
+        About
+      </div>
+      <ul class="flex flex-col space-y-4">
+        {
+          about.map(entry => (
+            <li class="animate">
+              <article>
+                <entry.Content />
+              </article>
+            </li>
+          ))
+        }
+      </ul>
+<!--
+      <ul class="animate flex flex-col gap-4">
+
+      </ul> -->
+    </div>
+  </Container>
+</PageLayout>
