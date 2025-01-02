@@ -5,6 +5,7 @@ import Container from "@components/Container.astro";
 import FormattedDate from "@components/FormattedDate.astro";
 import { readingTime } from "@lib/utils";
 import BackToPrev from "@components/BackToPrev.astro";
+import Comments from '@components/Comments.astro'
 
 export async function getStaticPaths() {
   const posts = (await getCollection("blog"))
@@ -45,5 +46,8 @@ const { Content } = await post.render();
     <article class="animate">
       <Content />
     </article>
+    <div class="my-10">
+      <Comments /> {/* Embedding comments outside the <article> for proper separation */}
+    </div>
   </Container>
 </PageLayout>
