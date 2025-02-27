@@ -84,7 +84,7 @@ const { title, description, image = "/nano.png" } = Astro.props;
 
     const lightThemeButton = document.getElementById("light-theme-button");
     lightThemeButton?.addEventListener("click", () => {
-      localStorage.setItem("theme", "light");
+      localStorage.setItem("theme", "dark");
       toggleTheme(false);
     });
 
@@ -168,7 +168,7 @@ function toggleTheme(dark) {
   function preloadTheme() {
     const userTheme = localStorage.theme;
 
-    if (userTheme === "light" || userTheme === "dark") {
+    if (userTheme === "dark" || userTheme === "dark") {
       toggleTheme(userTheme === "dark");
     } else {
       toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
